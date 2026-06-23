@@ -54,6 +54,7 @@ climadata-api/
 │       ├── queries.py       # accès aux données (lecture)
 │       └── simulateur.py    # modèle simplifié îlot de chaleur
 ├── pipeline/
+│   ├── communes.py          # géométries communales via API Géo -> PostGIS (geom)
 │   ├── extract_drias.py     # parsing des exports DRIAS + rattachement commune
 │   └── load.py              # chargement en base (`--seed` démo, `--drias` réel)
 ├── data/
@@ -206,9 +207,16 @@ les horizons H1/H2/H3 sur 2030/2040/2050, et convertit les indices :
 
 Repli automatique sur le jeu de démo pour ce que DRIAS ne couvre pas : la
 biodiversité (proxy INPN, pas de projection DRIAS) et les communes hors domaine
-EUROCORDEX (outre-mer, p. ex. Fort-de-France). Le référentiel géométrique des
-communes via API Géo / BAN reste à intégrer (sprint 3) pour un rattachement par
-intersection plutôt que par plus proche point.
+EUROCORDEX (outre-mer, p. ex. Fort-de-France).
+
+Géométries communales (colonne PostGIS `geom`), récupérées depuis l'API Géo :
+
+```bash
+python -m pipeline.communes   # contours -> municipality.geom (MultiPolygon, 4326)
+```
+
+Une fois `geom` peuplé, le rattachement DRIAS pourra évoluer du « plus proche point »
+vers une intersection spatiale (`ST_Contains`).
 
 ---
 

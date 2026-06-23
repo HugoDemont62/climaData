@@ -80,7 +80,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8000/api
 NEXT_PUBLIC_MAP_STYLE=https://demotiles.maplibre.org/style.json
 ```
 
-`NEXT_PUBLIC_API_URL` pointe vers l'API back (en prod, l'URL Scaleway).
+`NEXT_PUBLIC_API_URL` pointe vers l'API back (en prod, l'URL Railway).
 Le style de carte peut être un style MapLibre léger ou un style auto-hébergé pour la sobriété.
 
 ---
@@ -119,9 +119,9 @@ export type Simulation = {
 
 Endpoints appelés :
 
-- `GET /communes/recherche?code_postal=` lors de la saisie (acte II)
-- `GET /commune/{insee}?scenario=` pour la révélation (acte III)
-- `GET /commune/{insee}/simulation?vegetalisation=&scenario=` pour le simulateur (acte IV)
+- `GET /municipalities/search?code_postal=` lors de la saisie (acte II)
+- `GET /municipalities/{insee}?scenario=` pour la révélation (acte III)
+- `GET /municipalities/{insee}/simulation?vegetalisation=&scenario=` pour le simulateur (acte IV)
 
 Toute évolution de ce contrat doit être validée avec le back avant intégration.
 

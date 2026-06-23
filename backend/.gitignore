@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Env
+.env
+
+# Données brutes DRIAS (non versionnées, formats lourds)
+data/raw/
+
+# Outils
+.idea/
+.DS_Store

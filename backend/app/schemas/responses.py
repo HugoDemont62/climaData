@@ -7,6 +7,7 @@ class CommuneRef(BaseModel):
     insee: str
     nom: str
     littoral: bool
+    code_postal: str | None = None
 
 
 class IndicateurOut(BaseModel):

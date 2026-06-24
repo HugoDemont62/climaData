@@ -23,7 +23,7 @@ def search_municipalities(
     """Résout un code postal en une ou plusieurs communes."""
     communes = queries.find_municipalities_by_postal_code(db, code_postal)
     return [
-        CommuneRef(insee=c.insee_code, nom=c.name, littoral=c.coastal)
+        CommuneRef(insee=c.insee_code, nom=c.name, littoral=c.coastal, code_postal=c.postal_code)
         for c in communes
     ]
 

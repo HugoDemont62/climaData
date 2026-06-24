@@ -5,7 +5,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { searchCommunes, getCommuneData } from "@/lib/api";
 import type { CommuneData } from "@/lib/types";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import FranceSvg from "./FranceSvg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,7 +18,6 @@ export default function ActII({ onCommuneLoaded }: Props) {
   const [error, setError]           = useState("");
 
   const sectionRef  = useRef<HTMLElement>(null);
-  const franceRef   = useRef<SVGSVGElement>(null);
   const headRef     = useRef<HTMLDivElement>(null);
   const inputRef    = useRef<HTMLDivElement>(null);
   const shortcutsRef = useRef<HTMLDivElement>(null);
@@ -35,28 +33,7 @@ export default function ActII({ onCommuneLoaded }: Props) {
       // Scroll trigger commun
       const triggerOpts = { trigger: sectionRef.current, start: "top 72%" };
 
-      // 1. France SVG — animation stroke-dashoffset via GSAP (aucun plugin payant)
-      const path = franceRef.current?.querySelector<SVGPathElement>("#france-metro");
-      if (path) {
-        const len = path.getTotalLength();
-        gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
-        gsap.to(path, {
-          strokeDashoffset: 0, duration: 1.8, ease: "power2.inOut",
-          scrollTrigger: triggerOpts,
-        });
-        const corse = franceRef.current?.querySelector<SVGPathElement>("path:last-child");
-        if (corse) {
-          gsap.set(corse, { opacity: 0 });
-          gsap.to(corse, { opacity: 1, duration: .6, delay: 1.6, scrollTrigger: triggerOpts });
-        }
-      } else {
-        gsap.fromTo(franceRef.current, { opacity: 0, scale: .85 }, {
-          opacity: 1, scale: 1, duration: 1.2, ease: "power2.out",
-          scrollTrigger: triggerOpts,
-        });
-      }
-
-      // 2. Headline, input, shortcuts en cascade
+      // Headline, input, shortcuts en cascade
       gsap.fromTo(headRef.current,
         { opacity: 0, y: 48 },
         { opacity: 1, y: 0, duration: .9, ease: "power3.out", delay: .4, scrollTrigger: triggerOpts });
@@ -91,8 +68,8 @@ export default function ActII({ onCommuneLoaded }: Props) {
     <section
       ref={sectionRef}
       id="acte-2"
-      className="relative flex min-h-screen flex-col items-center justify-center gap-8 overflow-hidden px-5 sm:px-6 py-10 sm:py-16"
-      style={{ background: "#080F1C" }}
+      className="grain relative flex min-h-screen flex-col items-center justify-center gap-8 overflow-hidden px-5 sm:px-6 py-10 sm:py-16"
+      style={{ background: "var(--earth-night)" }}
       aria-label="Acte II — Votre commune"
     >
       {/* Grille légère — CSS only, aucun DOM supplémentaire */}
@@ -103,38 +80,36 @@ export default function ActII({ onCommuneLoaded }: Props) {
         WebkitMaskImage: "radial-gradient(ellipse 55% 65% at 50% 50%, black 10%, transparent 80%)",
       }} />
 
-      {/* France SVG */}
-      <FranceSvg
-        ref={franceRef as React.RefObject<SVGSVGElement>}
-        className="w-48 sm:w-56"
-        style={{ color: "rgba(255,255,255,.55)", filter: "drop-shadow(0 0 18px rgba(30,111,224,.5))" }}
-      />
+      {/* Aube dorée — bas de l'écran */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0" aria-hidden style={{
+        height: "45%",
+        background: "linear-gradient(0deg, rgba(217,164,65,.22) 0%, rgba(232,116,59,.08) 40%, transparent 100%)",
+      }} />
 
       {/* Headline */}
       <div ref={headRef} className="text-center" style={{ opacity: 0 }}>
-        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".18em", textTransform: "uppercase", color: "rgba(255,255,255,.36)", marginBottom: 12 }}>
-          La bascule
+        <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: ".18em", textTransform: "uppercase", color: "rgba(251,246,236,.4)", marginBottom: 12 }}>
+          Votre commune
         </div>
         <h2 style={{
-          fontFamily: "var(--font-space-grotesk), sans-serif",
+          fontFamily: "var(--font-sen), sans-serif",
           fontWeight: 700,
           fontSize: "clamp(36px,6vw,72px)",
           letterSpacing: "-.025em",
           lineHeight: 1.02,
-          color: "#fff",
+          color: "var(--paper-text)",
           marginBottom: 14,
-        }}>Et chez vous ?</h2>
+        }}>On regarde chez vous ?</h2>
         <p style={{
-          fontFamily: "var(--font-spectral), serif",
-          fontStyle: "italic",
+          fontFamily: "var(--font-sen), sans-serif",
           fontSize: "clamp(16px,2.2vw,20px)",
-          color: "rgba(255,255,255,.62)",
+          color: "rgba(251,246,236,.62)",
           lineHeight: 1.65,
           maxWidth: 400,
           margin: "0 auto",
         }}>
-          Entrez votre code postal pour révéler les projections climatiques
-          de votre commune à 2030, 2040 et 2050.
+          Votre code postal, et on vous montre à quoi ressemblera
+          le climat de votre ville en 2030, 2040 et 2050.
         </p>
       </div>
 
@@ -177,7 +152,7 @@ export default function ActII({ onCommuneLoaded }: Props) {
                   onClick={() => query.length >= 3 && handleSearch(query)}
                   style={{
                     margin: 5,
-                    background: "#1E6FE0",
+                    background: "var(--terracotta)",
                     color: "#fff",
                     border: "none",
                     borderRadius: 14,
@@ -262,9 +237,9 @@ export default function ActII({ onCommuneLoaded }: Props) {
               }}
               onMouseEnter={e => {
                 const el = e.currentTarget;
-                el.style.background = "rgba(30,111,224,.12)";
-                el.style.borderColor = "rgba(30,111,224,.5)";
-                el.style.boxShadow = "0 8px 28px rgba(30,111,224,.15)";
+                el.style.background = "rgba(232,116,59,.12)";
+                el.style.borderColor = "rgba(232,116,59,.5)";
+                el.style.boxShadow = "0 8px 28px rgba(232,116,59,.15)";
                 el.style.transform = "translateY(-2px)";
               }}
               onMouseLeave={e => {
@@ -279,17 +254,17 @@ export default function ActII({ onCommuneLoaded }: Props) {
               <span style={{
                 position: "absolute", top: 12, right: 14,
                 fontSize: 10, fontWeight: 700, color: "rgba(255,255,255,.22)",
-                fontFamily: "var(--font-space-grotesk)",
+                fontFamily: "var(--font-sen)",
               }}>
                 {d.num}
               </span>
 
               {/* City name */}
               <p style={{
-                fontFamily: "var(--font-space-grotesk), sans-serif",
+                fontFamily: "var(--font-sen), sans-serif",
                 fontWeight: 700,
                 fontSize: 15,
-                color: "#fff",
+                color: "var(--paper-text)",
                 marginBottom: 6,
                 paddingRight: 24,
                 lineHeight: 1.2,
@@ -314,11 +289,11 @@ export default function ActII({ onCommuneLoaded }: Props) {
                     <span style={{
                       fontSize: 9, fontWeight: 700,
                       padding: "3px 8px", borderRadius: 20,
-                      background: "rgba(30,111,224,.25)",
-                      color: "#7EB8F7",
+                      background: "rgba(45,90,107,.25)",
+                      color: "#8FC3D6",
                       letterSpacing: ".04em",
                       textTransform: "uppercase",
-                      border: "1px solid rgba(30,111,224,.3)",
+                      border: "1px solid rgba(45,90,107,.4)",
                     }}>
                       Littoral
                     </span>

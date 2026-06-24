@@ -7,7 +7,7 @@ type Props = { data?: CommuneData };
 export default function LinearView({ data }: Props) {
   if (!data) {
     return (
-      <div className="mx-auto max-w-2xl px-5 py-12 text-center" style={{ color: "#42566e" }}>
+      <div className="mx-auto max-w-2xl px-5 py-12 text-center" style={{ color: "var(--paper-muted)" }}>
         <p>Entrez votre code postal pour voir les données climatiques.</p>
       </div>
     );
@@ -17,11 +17,11 @@ export default function LinearView({ data }: Props) {
     <article className="mx-auto max-w-2xl px-5 py-12" aria-label="Vue linéaire sans animation">
       <h1
         className="font-display font-bold mb-2"
-        style={{ fontSize: "clamp(24px, 4vw, 40px)", color: "#0E1A2B", letterSpacing: "-0.01em" }}
+        style={{ fontSize: "clamp(24px, 4vw, 40px)", color: "var(--paper-text)", letterSpacing: "-0.01em" }}
       >
         {data.commune.nom} — Projections 2050
       </h1>
-      <p className="text-sm mb-8" style={{ color: "#5B6B7F" }}>
+      <p className="text-sm mb-8" style={{ color: "var(--paper-muted)" }}>
         Scénario {data.scenario} · Source DRIAS
       </p>
 

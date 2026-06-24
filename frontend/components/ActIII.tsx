@@ -91,10 +91,10 @@ export default function ActIII({ data }: Props) {
       aria-label="Acte III — La révélation"
     >
       {/* Sticky container — reste visible pendant tout le scroll de la section */}
-      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "linear-gradient(160deg, #EBF0F8 0%, #F4F7FC 50%, #EDF2FA 100%)" }}>
+      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "radial-gradient(ellipse at 50% 30%, #241A12 0%, #1A1410 70%)" }}>
 
         {/* Barre de progression fine */}
-        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "rgba(14,26,43,.08)", zIndex: 30 }}>
+        <div style={{ position: "absolute", top: 0, left: 0, right: 0, height: 2, background: "rgba(251,246,236,.1)", zIndex: 30 }}>
           <div
             ref={progressRef}
             style={{
@@ -102,7 +102,7 @@ export default function ActIII({ data }: Props) {
               width: "100%",
               transformOrigin: "left center",
               transform: "scaleX(0)",
-              background: "#1E6FE0",
+              background: "var(--terracotta)",
             }}
           />
         </div>
@@ -112,25 +112,25 @@ export default function ActIII({ data }: Props) {
           position: "absolute", top: 2, left: 0, right: 0, zIndex: 20,
           display: "flex", alignItems: "center", justifyContent: "space-between",
           padding: "12px clamp(16px, 4vw, 48px)",
-          background: "rgba(8,15,28,.97)",
-          borderBottom: "1px solid rgba(255,255,255,.07)",
+          background: "rgba(26,20,16,.97)",
+          borderBottom: "1px solid rgba(251,246,236,.07)",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
             <span style={{
               display: "inline-flex", height: 7, width: 7, borderRadius: "50%", flexShrink: 0,
-              background: "#1E6FE0",
-              boxShadow: "0 0 0 3px rgba(30,111,224,.2)",
+              background: "var(--terracotta)",
+              boxShadow: "0 0 0 3px rgba(232,116,59,.2)",
             }} />
             <span style={{
-              fontFamily: "var(--font-space-grotesk)", fontWeight: 700,
-              color: "#fff", fontSize: 13, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
+              fontFamily: "var(--font-sen)", fontWeight: 700,
+              color: "var(--paper-text)", fontSize: 13, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap",
             }}>
               {data.commune.nom}
             </span>
             {data.commune.littoral && (
               <span style={{
                 borderRadius: 20, padding: "1px 8px", fontSize: 11, fontWeight: 600,
-                background: "rgba(30,111,224,.18)", color: "#1E6FE0", flexShrink: 0,
+                background: "rgba(45,90,107,.18)", color: "#8FC3D6", flexShrink: 0,
               }}>
                 Littoral
               </span>
@@ -140,8 +140,8 @@ export default function ActIII({ data }: Props) {
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
             {/* Compteur */}
             <span style={{
-              fontFamily: "var(--font-space-grotesk)", fontWeight: 700,
-              fontSize: 11, letterSpacing: ".1em", color: "#1E6FE0",
+              fontFamily: "var(--font-sen)", fontWeight: 700,
+              fontSize: 11, letterSpacing: ".1em", color: "var(--terracotta)",
             }}>
               {String(activeIdx + 1).padStart(2, "0")} / {String(N).padStart(2, "0")}
             </span>

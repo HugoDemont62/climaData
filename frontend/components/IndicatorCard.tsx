@@ -15,38 +15,38 @@ const META: Record<string, {
   canicule: {
     index: "01",
     label: "Jours de canicule",
-    color: "#C94535",
-    colorLight: "rgba(201,69,53,.07)",
-    colorBorder: "rgba(201,69,53,.18)",
-    barColors: ["#F5DDD6", "#EDA98C", "#E07050", "#C94535"],
-    phrase: (v) => `En 2050, ${v} journées dépasseront 35 °C — soit presque deux semaines de fournaise continue chaque été.`,
+    color: "#E8743B",
+    colorLight: "rgba(232,116,59,.12)",
+    colorBorder: "rgba(232,116,59,.28)",
+    barColors: ["#5A3422", "#A85A33", "#D9682F", "#F2843E"],
+    phrase: (v) => `${v} jours par an à plus de 35 °C. Ici, la clim arrête d'être un confort : ça devient une question de santé.`,
   },
   nuits_chaudes: {
     index: "02",
     label: "Nuits tropicales",
-    color: "#7B3FA0",
-    colorLight: "rgba(123,63,160,.07)",
-    colorBorder: "rgba(123,63,160,.18)",
-    barColors: ["#EDE0F5", "#C9A0DF", "#9B59B6", "#7B3FA0"],
-    phrase: (v) => `${v} nuits par an au-dessus de 20 °C. Dormir fenêtre ouverte deviendra une exception, pas une habitude.`,
+    color: "#C77BA6",
+    colorLight: "rgba(199,123,166,.12)",
+    colorBorder: "rgba(199,123,166,.28)",
+    barColors: ["#43293A", "#7A4E6A", "#A66B92", "#C77BA6"],
+    phrase: (v) => `${v} nuits où il fait encore 20 °C dehors. On dort mal, on récupère mal, et les plus fragiles trinquent.`,
   },
   stress_hydrique: {
     index: "03",
     label: "Déficit hydrique",
-    color: "#1A6EA8",
-    colorLight: "rgba(26,110,168,.07)",
-    colorBorder: "rgba(26,110,168,.18)",
-    barColors: ["#CCE5F5", "#7DBDE8", "#3498DB", "#1A6EA8"],
-    phrase: (v) => `Indice ${v}/100 de déficit en eau : nappes sous pression, rivières à l'étiage dès juillet, jardins asséchés.`,
+    color: "#5AA0BC",
+    colorLight: "rgba(90,160,188,.12)",
+    colorBorder: "rgba(90,160,188,.28)",
+    barColors: ["#1E3A45", "#356575", "#4886A0", "#5AA0BC"],
+    phrase: (v) => `Un manque d'eau noté ${v}/100. Arrosage coupé, rivières à sec dès juillet, nappes qui n'arrivent plus à suivre.`,
   },
   biodiversite: {
     index: "04",
     label: "Pression biodiversité",
-    color: "#1A7A42",
-    colorLight: "rgba(26,122,66,.07)",
-    colorBorder: "rgba(26,122,66,.18)",
-    barColors: ["#C8EDD6", "#78CC9F", "#27AE60", "#1A7A42"],
-    phrase: (v) => `Score de pression ${v}/100 sur les espèces locales — certaines d'entre elles auront disparu avant 2050.`,
+    color: "#84B65A",
+    colorLight: "rgba(132,182,90,.12)",
+    colorBorder: "rgba(132,182,90,.28)",
+    barColors: ["#2C401D", "#4E6E33", "#6A9748", "#84B65A"],
+    phrase: (v) => `Une pression de ${v}/100 sur le vivant d'ici. Des espèces que vos enfants ne verront peut-être qu'en photo.`,
   },
 };
 
@@ -85,10 +85,10 @@ export default function IndicatorCard({ indicateur, animate = false }: Props) {
 
   return (
     <article style={{
-      background: "#fff",
+      background: "var(--earth-panel)",
       borderRadius: 24,
       overflow: "hidden",
-      boxShadow: "0 32px 80px rgba(14,26,43,.13), 0 4px 16px rgba(14,26,43,.07)",
+      boxShadow: "0 32px 80px rgba(0,0,0,.45), 0 4px 16px rgba(0,0,0,.3)",
       border: `1px solid ${meta.colorBorder}`,
     }}>
       {/* Accent top bar */}
@@ -102,7 +102,7 @@ export default function IndicatorCard({ indicateur, animate = false }: Props) {
         {/* Header row */}
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 32 }}>
           <span style={{
-            fontFamily: "var(--font-space-grotesk)",
+            fontFamily: "var(--font-sen)",
             fontWeight: 800,
             fontSize: 12,
             color: meta.color,
@@ -117,7 +117,7 @@ export default function IndicatorCard({ indicateur, animate = false }: Props) {
           <span style={{
             fontSize: 12,
             fontWeight: 700,
-            color: "#8493A5",
+            color: "var(--paper-muted)",
             textTransform: "uppercase",
             letterSpacing: ".14em",
           }}>
@@ -132,7 +132,7 @@ export default function IndicatorCard({ indicateur, animate = false }: Props) {
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ display: "flex", alignItems: "flex-end", gap: 12, marginBottom: 8 }}>
               <span ref={numRef} style={{
-                fontFamily: "var(--font-space-grotesk), sans-serif",
+                fontFamily: "var(--font-sen), sans-serif",
                 fontWeight: 800,
                 fontSize: "clamp(72px, 13vw, 112px)",
                 letterSpacing: "-.04em",
@@ -144,7 +144,7 @@ export default function IndicatorCard({ indicateur, animate = false }: Props) {
               <span style={{
                 fontSize: "clamp(12px, 1.6vw, 15px)",
                 fontWeight: 600,
-                color: "#9BA8BA",
+                color: "var(--paper-muted)",
                 marginBottom: 14,
                 maxWidth: 80,
                 lineHeight: 1.3,
@@ -154,7 +154,7 @@ export default function IndicatorCard({ indicateur, animate = false }: Props) {
             </div>
             <p style={{
               fontSize: 13,
-              color: "#B0BEC8",
+              color: "#8A7A66",
               fontWeight: 500,
               letterSpacing: ".02em",
             }}>
@@ -165,7 +165,7 @@ export default function IndicatorCard({ indicateur, animate = false }: Props) {
           {/* Bar chart */}
           <div style={{ flexShrink: 0, width: "clamp(130px, 24vw, 180px)" }}>
             <p style={{
-              fontSize: 9, fontWeight: 700, color: "#B0C0D4",
+              fontSize: 9, fontWeight: 700, color: "#8A7A66",
               textTransform: "uppercase", letterSpacing: ".14em", marginBottom: 14,
             }}>
               Évolution
@@ -183,7 +183,7 @@ export default function IndicatorCard({ indicateur, animate = false }: Props) {
                   }}>
                     <span style={{
                       fontSize: 9, fontWeight: 700,
-                      color: i === 3 ? meta.color : "#B0C0D4",
+                      color: i === 3 ? meta.color : "#8A7A66",
                       lineHeight: 1,
                     }}>
                       {i === 0 ? "—" : values[i]}
@@ -199,12 +199,12 @@ export default function IndicatorCard({ indicateur, animate = false }: Props) {
                         }}
                       />
                     </div>
-                    <span style={{ fontSize: 9, color: "#B0C0D4", lineHeight: 1 }}>{label}</span>
+                    <span style={{ fontSize: 9, color: "#8A7A66", lineHeight: 1 }}>{label}</span>
                   </div>
                 );
               })}
             </div>
-            <p style={{ fontSize: 10, color: "#C8D8E8", marginTop: 10 }}>
+            <p style={{ fontSize: 10, color: "#6E5F4D", marginTop: 10 }}>
               Source : {indicateur.source}
             </p>
           </div>
@@ -218,10 +218,9 @@ export default function IndicatorCard({ indicateur, animate = false }: Props) {
           borderLeft: `4px solid ${meta.color}`,
         }}>
           <p style={{
-            fontFamily: "var(--font-spectral), serif",
-            fontStyle: "italic",
+            fontFamily: "var(--font-sen), sans-serif",
             fontSize: "clamp(14px, 1.8vw, 17px)",
-            color: "#2D3E52",
+            color: "#EDE3D4",
             lineHeight: 1.75,
           }}>
             {meta.phrase(indicateur.horizons["2050"])}

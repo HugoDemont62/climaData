@@ -1,24 +1,11 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk, Spectral } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const spectral = Spectral({
-  variable: "--font-spectral",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  style: ["normal", "italic"],
+// Sen — self-hosted (variable, poids 400→800). Aucune dépendance Google Fonts.
+const sen = localFont({
+  src: [{ path: "./fonts/Sen-latin.woff2", weight: "400 800", style: "normal" }],
+  variable: "--font-sen",
   display: "swap",
 });
 
@@ -33,9 +20,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="fr">
-      <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${spectral.variable} antialiased`}
-      >
+      <body className={`${sen.variable} antialiased`}>
         {children}
       </body>
     </html>

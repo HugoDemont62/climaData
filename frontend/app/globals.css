@@ -1,15 +1,47 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ink:     #080F1C;
-  --color-paper:   #FFFFFF;
-  --color-accent:  #1E6FE0;
-  --color-text:    #0E1A2B;
-  --color-muted:   #6B7A8D;
-  --color-border:  #E8EDF4;
-  --font-sans:     var(--font-inter);
-  --font-display:  var(--font-space-grotesk);
-  --font-serif:    var(--font-spectral);
+  /* Palette Terre */
+  --color-earth-night:   #1A1410;
+  --color-earth-night-2: #241A12;
+  --color-clay-light:    #F4ECDD;
+  --color-clay-light-2:  #EBE0CC;
+  --color-terracotta:    #E8743B;
+  --color-terracotta-deep:#C2521F;
+  --color-leaf:          #5C8A3A;
+  --color-leaf-deep:     #3E6325;
+  --color-gold:          #D9A441;
+  --color-petrol:        #2D5A6B;
+  --color-ink-warm:      #2A211A;
+  --color-paper-text:    #FBF6EC;
+  --color-earth-panel:   #221A13;
+  --color-earth-panel-2: #2C2219;
+  --color-earth-line:    #3A2D20;
+  --color-paper-muted:   #B5A48F;
+
+  --font-sans:    var(--font-sen);
+  --font-display: var(--font-sen);
+  --font-serif:   var(--font-sen);
+}
+
+/* Variables CSS brutes (pour usage inline dans les composants) */
+:root {
+  --earth-night:    #1A1410;
+  --earth-night-2:  #241A12;
+  --clay-light:     #F4ECDD;
+  --clay-light-2:   #EBE0CC;
+  --terracotta:     #E8743B;
+  --terracotta-deep:#C2521F;
+  --leaf:           #5C8A3A;
+  --leaf-deep:      #3E6325;
+  --gold:           #D9A441;
+  --petrol:         #2D5A6B;
+  --ink-warm:       #2A211A;
+  --paper-text:     #FBF6EC;
+  --earth-panel:    #221A13;
+  --earth-panel-2:  #2C2219;
+  --earth-line:     #3A2D20;
+  --paper-muted:    #B5A48F;
 }
 
 *,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -17,38 +49,48 @@
 html { scroll-behavior: auto; }
 
 body {
-  background: #080F1C;
-  color: #fff;
-  font-family: var(--font-inter), -apple-system, sans-serif;
+  background: var(--earth-night);
+  color: var(--paper-text);
+  font-family: var(--font-sen), -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
 
-/* Ambient glow — opacity only, compositor thread */
+/* Halo de chaleur — opacity only, compositor thread */
 @keyframes breathe {
-  0%,100% { opacity: .10; }
-  50%      { opacity: .22; }
+  0%,100% { opacity: .12; }
+  50%     { opacity: .28; }
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
-/* Gradient text — bleu uniquement */
+/* Texte dégradé chaud */
 .gradient-text {
-  background: linear-gradient(90deg, #0B3D91, #1E6FE0);
+  background: linear-gradient(90deg, var(--gold), var(--terracotta));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-/* Slider */
+/* Grain de film — overlay global, SVG data-URI, aucune image lourde */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: .05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Slider — vert vivant */
 input[type=range] {
   -webkit-appearance: none;
   appearance: none;
   height: 6px;
   border-radius: 999px;
-  background: #1E3A6E;
+  background: #3A2D20;
   outline: none;
   cursor: pointer;
 }
@@ -56,13 +98,13 @@ input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 24px; height: 24px;
   border-radius: 50%;
-  background: #1E6FE0;
-  box-shadow: 0 2px 12px rgba(30,111,224,.45);
+  background: var(--leaf);
+  box-shadow: 0 2px 12px rgba(92,138,58,.45);
   transition: transform .15s ease;
 }
 input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.18); }
 
-/* Scrollbar minimal */
+/* Scrollbar minimal — chaud */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #050d18; }
-::-webkit-scrollbar-thumb { background: #1E3A6E; border-radius: 2px; }
+::-webkit-scrollbar-track { background: #120D09; }
+::-webkit-scrollbar-thumb { background: var(--terracotta-deep); border-radius: 2px; }

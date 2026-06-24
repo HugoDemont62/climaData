@@ -26,7 +26,6 @@ from app.models import (
     Source,
 )
 from data.seed import dataset
-from pipeline.extract_drias import extract
 
 RAW_DIR = "data/raw"
 
@@ -133,6 +132,9 @@ def load_drias(db: Session, raw_dir: str = RAW_DIR) -> dict[str, int]:
     """
     if not _is_empty(db):
         return {"skipped": 1}
+
+    # Import différé : l'extraction n'est nécessaire que pour le mode --drias.
+    from pipeline.extract_drias import extract
 
     indicators, scenarios = _load_reference_data(db)
 

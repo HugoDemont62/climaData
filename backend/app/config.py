@@ -23,6 +23,21 @@ class Settings(BaseSettings):
     def cors_origins_list(self) -> list[str]:
         return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
 
+    @property
+    def sqlalchemy_url(self) -> str:
+        """URL normalisée pour SQLAlchemy.
+
+        Railway (et d'autres hébergeurs) fournit `postgresql://...`, ce qui pousse
+        SQLAlchemy à charger psycopg2 (absent du projet). On force le driver psycopg
+        v3 (`postgresql+psycopg://`), le seul installé.
+        """
+        url = self.database_url
+        if url.startswith("postgresql://"):
+            return url.replace("postgresql://", "postgresql+psycopg://", 1)
+        if url.startswith("postgres://"):
+            return url.replace("postgres://", "postgresql+psycopg://", 1)
+        return url
+
 
 @lru_cache
 def get_settings() -> Settings:

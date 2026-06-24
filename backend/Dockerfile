@@ -14,4 +14,6 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Au démarrage : migrations Alembic, seed idempotent, puis l'API.
+# Railway injecte $PORT dynamiquement ; repli sur 8000 en local.
+CMD ["sh", "-c", "alembic upgrade head && python -m pipeline.load --seed && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

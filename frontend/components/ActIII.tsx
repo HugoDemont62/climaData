@@ -135,7 +135,7 @@ export default function ActIII({ data }: Props) {
                 Littoral
               </span>
             )}
-            <span style={{ fontSize: 12, color: "#6B7A8D", flexShrink: 0 }}>· {data.scenario}</span>
+            <span style={{ fontSize: 12, color: "#6B7A8D", flexShrink: 0 }}>Scénario {data.scenario}</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
             {/* Compteur */}

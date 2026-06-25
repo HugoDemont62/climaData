@@ -6,10 +6,10 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 type Props = { data: CommuneData };
 
 const IND_META: Record<string, { color: string; label: string }> = {
-  canicule:        { color: "#E8743B", label: "Jours de canicule" },
-  nuits_chaudes:   { color: "#C77BA6", label: "Nuits tropicales" },
-  stress_hydrique: { color: "#5AA0BC", label: "Déficit hydrique" },
-  biodiversite:    { color: "#84B65A", label: "Pression biodiversité" },
+  canicule:        { color: "#E8743B", label: "Jours de forte chaleur" },
+  nuits_chaudes:   { color: "#C77BA6", label: "Nuits étouffantes" },
+  stress_hydrique: { color: "#5AA0BC", label: "Manque d'eau" },
+  biodiversite:    { color: "#84B65A", label: "Nature en danger" },
 };
 
 export default function ShareCard({ data }: Props) {
@@ -82,12 +82,13 @@ export default function ShareCard({ data }: Props) {
       style={{ background: "radial-gradient(ellipse at 50% 30%, #241A12 0%, #1A1410 75%)", position: "relative" }}
       aria-label="Acte V — Carte d'identité climatique"
     >
-      {/* Affiche dédiée au partage — hors écran, capturée en PNG (infos centrales, soignée) */}
+      {/* Affiche dédiée au partage, hors écran, capturée en PNG (infos centrales, soignée).
+          Le décalage hors-écran est porté par le conteneur : le nœud capturé (posterRef)
+          ne doit avoir aucun décalage, sinon html-to-image le clone hors du cadre. */}
+      <div aria-hidden style={{ position: "fixed", left: -99999, top: 0, pointerEvents: "none" }}>
       <div
         ref={posterRef}
-        aria-hidden
         style={{
-          position: "fixed", left: -99999, top: 0,
           width: 620,
           padding: "52px 48px 44px",
           background: "linear-gradient(165deg, #2A1F16 0%, #16100B 100%)",
@@ -106,7 +107,7 @@ export default function ShareCard({ data }: Props) {
           {data.commune.nom}
         </p>
         <p style={{ fontSize: 15, color: "#B5A48F", marginBottom: 40 }}>
-          Le climat en 2050&nbsp;· Scénario {data.scenario}
+          Le climat en 2050, scénario {data.scenario}
         </p>
 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginBottom: 36 }}>
@@ -135,6 +136,7 @@ export default function ShareCard({ data }: Props) {
         <p style={{ fontSize: 17, lineHeight: 1.6, color: "rgba(251,246,236,.82)" }}>
           « Le climat ne change pas qu&apos;aux infos : il change ici. »
         </p>
+      </div>
       </div>
 
       <div style={{
@@ -215,7 +217,7 @@ export default function ShareCard({ data }: Props) {
                     </span>
                   )}
                   <span style={{ fontSize: 12, color: "var(--paper-muted)" }}>
-                    Scénario {data.scenario} · DRIAS 2025
+                    Scénario {data.scenario}, données DRIAS 2025
                   </span>
                 </div>
               </div>
@@ -286,8 +288,7 @@ export default function ShareCard({ data }: Props) {
               </p>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <span style={{ fontSize: 11, fontWeight: 700, color: "var(--gold)" }}>climadata.fr</span>
-                <span style={{ height: 3, width: 3, borderRadius: "50%", background: "var(--paper-muted)", display: "inline-block" }} />
-                <span style={{ fontSize: 11, color: "var(--paper-muted)" }}>Données DRIAS · 2025</span>
+                <span style={{ fontSize: 11, color: "var(--paper-muted)" }}>Données DRIAS 2025</span>
               </div>
             </div>
 
@@ -362,7 +363,7 @@ export default function ShareCard({ data }: Props) {
         {/* Footer */}
         <div style={{ marginTop: 32, textAlign: "center" }}>
           <p style={{ fontSize: 12, color: "#9A8C7A", lineHeight: 1.6 }}>
-            Données : DRIAS · DRIAS-Eau · API Géo · BAN — Licence ouverte
+            Sources : DRIAS, DRIAS-Eau, API Géo et BAN. Licence ouverte.
           </p>
         </div>
       </div>

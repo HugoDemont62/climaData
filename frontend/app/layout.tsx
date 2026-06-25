@@ -10,7 +10,7 @@ const sen = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "ClimaData — Le climat de votre commune en 2050",
+  title: "ClimaData : le climat de votre commune en 2050",
   description:
     "Découvrez les projections climatiques de votre commune à l'horizon 2030, 2040 et 2050. Data-journalisme climatique, sérieux et porteur d'espoir.",
 };

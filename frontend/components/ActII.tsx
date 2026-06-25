@@ -64,6 +64,24 @@ export default function ActII({ onCommuneLoaded }: Props) {
     finally { setLoading(false); }
   };
 
+  // Clic sur « Chercher » (ou touche Entrée) : on charge directement la 1re commune trouvée.
+  const handleSubmit = async () => {
+    if (query.length < 3 || loading) return;
+    setLoading(true); setError("");
+    try {
+      const results = suggestions.length ? suggestions : await searchCommunes(query);
+      if (results.length > 0) {
+        await handleSelect(results[0].insee, results[0].nom);
+      } else {
+        setError("Aucune commune ne correspond à cette recherche.");
+        setLoading(false);
+      }
+    } catch {
+      setError("La recherche a échoué. Réessayez dans un instant.");
+      setLoading(false);
+    }
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -132,6 +150,7 @@ export default function ActII({ onCommuneLoaded }: Props) {
               placeholder="Code postal ou commune…"
               value={query}
               onChange={(e) => handleSearch(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter") handleSubmit(); }}
               style={{
                 flex: 1,
                 border: "none",
@@ -149,7 +168,7 @@ export default function ActII({ onCommuneLoaded }: Props) {
             {loading
               ? <div style={{ margin: "0 16px", height: 20, width: 20, borderRadius: "50%", border: "2px solid #EAEFF6", borderTopColor: "#1E6FE0", animation: "spin 0.7s linear infinite" }} />
               : <button
-                  onClick={() => query.length >= 3 && handleSearch(query)}
+                  onClick={handleSubmit}
                   style={{
                     margin: 5,
                     background: "var(--terracotta)",

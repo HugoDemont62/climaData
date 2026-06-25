@@ -19,10 +19,10 @@ export default function LinearView({ data }: Props) {
         className="font-display font-bold mb-2"
         style={{ fontSize: "clamp(24px, 4vw, 40px)", color: "var(--paper-text)", letterSpacing: "-0.01em" }}
       >
-        {data.commune.nom} — Projections 2050
+        {data.commune.nom}, projections 2050
       </h1>
       <p className="text-sm mb-8" style={{ color: "var(--paper-muted)" }}>
-        Scénario {data.scenario} · Source DRIAS
+        Scénario {data.scenario}, source DRIAS
       </p>
 
       <div className="flex flex-col gap-6">

@@ -14,7 +14,7 @@ const META: Record<string, {
 }> = {
   canicule: {
     index: "01",
-    label: "Jours de canicule",
+    label: "Jours de forte chaleur",
     color: "#E8743B",
     colorLight: "rgba(232,116,59,.12)",
     colorBorder: "rgba(232,116,59,.28)",
@@ -23,7 +23,7 @@ const META: Record<string, {
   },
   nuits_chaudes: {
     index: "02",
-    label: "Nuits tropicales",
+    label: "Nuits étouffantes",
     color: "#C77BA6",
     colorLight: "rgba(199,123,166,.12)",
     colorBorder: "rgba(199,123,166,.28)",
@@ -32,7 +32,7 @@ const META: Record<string, {
   },
   stress_hydrique: {
     index: "03",
-    label: "Déficit hydrique",
+    label: "Manque d'eau",
     color: "#5AA0BC",
     colorLight: "rgba(90,160,188,.12)",
     colorBorder: "rgba(90,160,188,.28)",
@@ -41,7 +41,7 @@ const META: Record<string, {
   },
   biodiversite: {
     index: "04",
-    label: "Pression biodiversité",
+    label: "Nature en danger",
     color: "#84B65A",
     colorLight: "rgba(132,182,90,.12)",
     colorBorder: "rgba(132,182,90,.28)",
@@ -186,7 +186,7 @@ export default function IndicatorCard({ indicateur, animate = false }: Props) {
                       color: i === 3 ? meta.color : "#8A7A66",
                       lineHeight: 1,
                     }}>
-                      {i === 0 ? "—" : values[i]}
+                      {i === 0 ? "0" : values[i]}
                     </span>
                     <div style={{ flex: 1, width: "100%", position: "relative" }}>
                       <div

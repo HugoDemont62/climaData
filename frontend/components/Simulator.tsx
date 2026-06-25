@@ -278,7 +278,7 @@ export default function Simulator({ data }: Props) {
                 lineHeight: 1.55,
               }}>
                 <span style={{ fontSize: "clamp(18px, 2.5vw, 22px)", fontWeight: 800, display: "block", marginBottom: 4 }}>
-                  −{Math.abs(delta)} jours évités · −{pct} %
+                  {Math.abs(delta)} jours de canicule évités, soit {pct} % de moins
                 </span>
                 Avec {vegetalisation} % de surfaces végétalisées, {data.commune.nom} s'épargnerait {pct} % de ses jours
                 de canicule d'ici 2050. Rien que ça.

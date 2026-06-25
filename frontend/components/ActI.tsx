@@ -61,6 +61,7 @@ export default function ActI() {
           scrub: 1.2,
           pin: pinnedRef.current,
           pinSpacing: false,
+          invalidateOnRefresh: true,
         },
       });
 
@@ -76,9 +77,16 @@ export default function ActI() {
         .fromTo(txt2.current, { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.12 }, 0.54)
         .to(txt2.current,     { opacity: 0, scale: 0.9, duration: 0.12 }, 0.70);
 
-      // 3. Zoom : la Terre fonce vers nous et s'efface, la France émerge et se dessine
-      tl.to(globeRef.current, { scale: 3.4, opacity: 0, duration: 0.22, ease: "power2.in" }, 0.66)
-        .to(ringsRef.current, { scale: 2.8, opacity: 0, duration: 0.22, ease: "power2.in" }, 0.66)
+      // 3. Zoom : la Terre fonce vers nous et s'efface, la France émerge et se dessine.
+      //    On utilise fromTo (états de départ explicites) + immediateRender:false : ainsi,
+      //    quand on remonte le scroll, GSAP restaure toujours le globe à pleine taille
+      //    (un simple .to() laisserait le globe figé en tout petit au retour en haut).
+      tl.fromTo(globeRef.current,
+          { scale: 1, opacity: 1 },
+          { scale: 3.4, opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 0.66)
+        .fromTo(ringsRef.current,
+          { scale: 1, opacity: 1 },
+          { scale: 2.8, opacity: 0, duration: 0.22, ease: "power2.in", immediateRender: false }, 0.66)
         .fromTo(franceRef.current,
           { opacity: 0, scale: 0.42 },
           { opacity: 1, scale: 1, duration: 0.26, ease: "power2.out" }, 0.72);

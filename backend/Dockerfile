@@ -17,4 +17,4 @@ EXPOSE 8000
 # Au démarrage : migrations Alembic + seed idempotent, puis l'API.
 # Les étapes DB sont tolérantes aux erreurs (loggées mais NON bloquantes) afin
 # que l'API démarre toujours et ne renvoie pas de 502. Railway injecte $PORT.
-CMD ["sh", "-c", "alembic upgrade head || echo '>>> ALEMBIC FAILED (voir erreur ci-dessus)'; python -m pipeline.load --seed || echo '>>> SEED FAILED (voir erreur ci-dessus)'; uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+CMD ["sh", "-c", "alembic upgrade head || echo '>>> ALEMBIC FAILED (voir erreur ci-dessus)'; python -m pipeline.load --drias || echo '>>> DRIAS LOAD FAILED (voir erreur ci-dessus)'; uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]

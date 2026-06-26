@@ -9,8 +9,10 @@ venv/
 # Env
 .env
 
-# Données brutes DRIAS (non versionnées, formats lourds)
-data/raw/
+# Données brutes DRIAS : on ignore tout sauf les fichiers d'indices nécessaires
+# au chargement --drias en prod (Railway lit data/raw depuis l'image Docker).
+data/raw/*
+!data/raw/indicesQ50_*.txt
 
 # Outils
 .idea/
